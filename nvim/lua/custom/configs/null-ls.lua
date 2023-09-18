@@ -35,6 +35,9 @@ local sources = {
   -- Terraform
   b.formatting.terraform_fmt,
 
+  -- Nix
+  b.formatting.alejandra,
+
   -- Trim trailing whitespace
   b.formatting.trim_whitespace,
 }
