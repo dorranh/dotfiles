@@ -4,15 +4,39 @@ local b = null_ls.builtins
 
 local sources = {
 
-  -- webdev stuff
-  b.formatting.deno_fmt, -- choosed deno for ts/js files cuz its very fast!
-  b.formatting.prettier.with { filetypes = { "html", "markdown", "css" } }, -- so prettier works only on these filetypes
+  -- Prettier
+  b.formatting.prettier.with {
+    filetypes = {
+      "html",
+      "markdown",
+      "css",
+      "json",
+      "yaml",
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
+  },
 
   -- Lua
   b.formatting.stylua,
 
   -- cpp
   b.formatting.clang_format,
+
+  -- Python
+  b.formatting.black,
+  b.formatting.isort,
+
+  -- Scala
+  b.formatting.scalafmt,
+
+  -- Terraform
+  b.formatting.terraform_fmt,
+
+  -- Trim trailing whitespace
+  b.formatting.trim_whitespace,
 }
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
