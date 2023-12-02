@@ -32,6 +32,9 @@ local sources = {
   -- Scala
   b.formatting.scalafmt,
 
+  -- Rust
+  b.formatting.rustfmt,
+
   -- Terraform
   b.formatting.terraform_fmt,
 
