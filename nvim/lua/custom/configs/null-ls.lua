@@ -27,7 +27,8 @@ local sources = {
 
   -- Python
   b.formatting.black,
-  b.formatting.isort,
+  -- b.formatting.isort,
+  b.formatting.ruff,
 
   -- Scala
   b.formatting.scalafmt,
