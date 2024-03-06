@@ -6,6 +6,6 @@ Neovim configuration
 
 Certain features in this config can be enabled / disabled using environment variables.
 
-| Name                | DESCRIPTION                                     |
-| ------------------- | ----------------------------------------------- |
-| NVIM_ENABLE_COPILOT | If set, neovim will load GitHub CoPilot plugins |
+| Name                | DESCRIPTION                                               |
+| ------------------- | --------------------------------------------------------- |
+| NVIM_ENABLE_COPILOT | If set to `TRUE`, neovim will load GitHub CoPilot plugins |
