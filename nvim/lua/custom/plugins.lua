@@ -30,6 +30,7 @@ local plugins = {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    tag = "v0.9.1",
     opts = overrides.treesitter,
   },
 
@@ -70,6 +71,93 @@ local plugins = {
     end,
   },
 
+  {
+    "nvim-neotest/neotest",
+    event = "VeryLazy",
+    config = function()
+      require("neotest").setup {
+        adapters = {
+          require "neotest-python" {},
+        },
+      }
+    end,
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      "haydenmeade/neotest-python",
+    },
+  },
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      local ok, dap = pcall(require, "dap")
+      if not ok then
+        return
+      end
+      -- dap.configurations.typescript = {
+      --   {
+      --     type = "node2",
+      --     name = "node attach",
+      --     request = "attach",
+      --     program = "${file}",
+      --     cwd = vim.fn.getcwd(),
+      --     sourceMaps = true,
+      --     protocol = "inspector",
+      --   },
+      -- }
+      -- dap.adapters.node2 = {
+      --   type = "executable",
+      --   command = "node-debug2-adapter",
+      --   args = {},
+      -- }
+    end,
+    dependencies = {
+      -- "mxsdev/nvim-dap-vscode-js",
+    },
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    config = function()
+      require("dapui").setup()
+
+      local dap, dapui = require "dap", require "dapui"
+
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open {}
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close {}
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close {}
+      end
+    end,
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+  },
+  -- {
+  --   "nvim-neotest/neotest",
+  --   dependencies = {
+  --     "nvim-neotest/nvim-nio",
+  --     "nvim-lua/plenary.nvim",
+  --     "antoinemadec/FixCursorHold.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "nvim-neotest/neotest-python",
+  --   },
+  --   config = function()
+  --     require("neotest").setup {
+  --       adapters = {
+  --         require("neotest-python").setup {
+  --           args = { "--log-level", "DEBUG" },
+  --           runner = "pytest",
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
   -- begin metals
   {
     "scalameta/nvim-metals",
@@ -203,7 +291,7 @@ local plugins = {
         -- NOTE: You may or may not want java included here. You will need it if you
         -- want basic Java support but it may also conflict if you are using
         -- something like nvim-jdtls which also works on a java filetype autocmd.
-        pattern = { "scala", "sbt", "java" },
+        pattern = { "scala", "sbt" },
         callback = function()
           require("metals").initialize_or_attach(metals_config)
         end,
@@ -213,20 +301,20 @@ local plugins = {
   },
 
   -- end metals
+
+  -- To make a plugin not be loaded
+  -- {
+  --   "NvChad/nvim-colorizer.lua",
+  --   enabled = false
+  -- },
+
+  -- All NvChad plugins are lazy-loaded by default
+  -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
+  -- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
+  -- {
+  --   "mg979/vim-visual-multi",
+  --   lazy = false,
+  -- }
+  --
 }
--- To make a plugin not be loaded
--- {
---   "NvChad/nvim-colorizer.lua",
---   enabled = false
--- },
-
--- All NvChad plugins are lazy-loaded by default
--- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
--- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
--- {
---   "mg979/vim-visual-multi",
---   lazy = false,
--- }
---
-
 return plugins
