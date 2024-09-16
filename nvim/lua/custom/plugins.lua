@@ -3,6 +3,13 @@ local overrides = require "custom.configs.overrides"
 ---@type NvPluginSpec[]
 local plugins = {
 
+  {
+    "nvim-java/nvim-java",
+    config = function()
+      require("java").setup()
+    end,
+  },
+
   -- Override plugin definition options
 
   {
@@ -78,6 +85,9 @@ local plugins = {
       require("neotest").setup {
         adapters = {
           require "neotest-python" {},
+          require "neotest-java" {
+            ignore_wrapper = false,
+          },
         },
       }
     end,
@@ -86,7 +96,9 @@ local plugins = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
+      -- Various adapters can be added here:
       "haydenmeade/neotest-python",
+      "rcasia/neotest-java",
     },
   },
   {
@@ -138,26 +150,7 @@ local plugins = {
       "mfussenegger/nvim-dap",
     },
   },
-  -- {
-  --   "nvim-neotest/neotest",
-  --   dependencies = {
-  --     "nvim-neotest/nvim-nio",
-  --     "nvim-lua/plenary.nvim",
-  --     "antoinemadec/FixCursorHold.nvim",
-  --     "nvim-treesitter/nvim-treesitter",
-  --     "nvim-neotest/neotest-python",
-  --   },
-  --   config = function()
-  --     require("neotest").setup {
-  --       adapters = {
-  --         require("neotest-python").setup {
-  --           args = { "--log-level", "DEBUG" },
-  --           runner = "pytest",
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
+
   -- begin metals
   {
     "scalameta/nvim-metals",
