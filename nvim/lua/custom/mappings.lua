@@ -1,6 +1,8 @@
 ---@type MappingsTable
 local M = {}
 
+local is_test_summary_open = false
+
 M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
@@ -37,9 +39,15 @@ M.tests = {
     },
     ["<leader>ts"] = {
       function()
-        require("neotest").summary.open()
+        if is_test_summary_open then
+          require("neotest").summary.close()
+          is_test_summary_open = false
+        else
+          require("neotest").summary.open()
+          is_test_summary_open = true
+        end
       end,
-      "Show test output",
+      "Show test summary",
     },
   },
 }
