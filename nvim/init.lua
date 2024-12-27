@@ -29,6 +29,9 @@ require("lazy").setup({
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
+-- Toggle theme based on time of day. This currently only evaluates on startup or config change 
+require "theme_by_time_of_day"
+
 require "options"
 require "nvchad.autocmds"
 

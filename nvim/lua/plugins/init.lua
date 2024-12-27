@@ -13,13 +13,33 @@ return {
     end,
   },
 
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "css",
+        "html",
+        "lua",
+        "python",
+        "rust",
+        "scala",
+        "sql",
+        "terraform",
+        "toml",
+        "vim",
+        "vimdoc",
+        "yaml",
+      },
+    },
+  },
+
+  {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    cond = vim.env.NVIM_ENABLE_COPILOT == "TRUE",
+    config = function()
+      require("copilot").setup {}
+      vim.g.copilot_no_tab_map = true
+    end,
+  },
 }
