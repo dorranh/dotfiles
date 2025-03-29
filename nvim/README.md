@@ -8,4 +8,4 @@ Certain features in this config can be enabled / disabled using environment vari
 
 | Name                | DESCRIPTION                                               |
 | ------------------- | --------------------------------------------------------- |
-| NVIM_ENABLE_COPILOT | If set to `TRUE`, neovim will load GitHub CoPilot plugins |
+| NVIM_DISABLE_COPILOT | If set to `TRUE`, neovim will disable GitHub CoPilot plugins |
