@@ -7,12 +7,12 @@ return {
 	},
 
 	-- Mason: installs LSP server binaries and adds mason/bin to PATH
-	{ "williamboman/mason.nvim", cmd = "Mason", opts = {} },
+	{ "mason-org/mason.nvim", cmd = "Mason", opts = {} },
 
 	-- Mason-lspconfig: ensures servers are installed (install-only role here)
 	{
 		"mason-org/mason-lspconfig.nvim",
-		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
+		dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
 		event = { "BufReadPost", "BufNewFile" },
 		opts = {
 			ensure_installed = {
