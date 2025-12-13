@@ -18,6 +18,9 @@ return {
 	-- Finder
 	{ import = "plugins.fzf" },
 
+	-- Harpoon
+	{ import = "plugins.harpoon" },
+
 	-- Explorer
 	{ import = "plugins.explorer" },
 
