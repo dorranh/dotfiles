@@ -4,7 +4,8 @@ return {
 		priority = 1000,
 		lazy = false,
 		opts = {
-			-- Enable just the bits you care about
+			statuscolumn = { enabled = true },
+			scroll = { enabled = true },
 			dashboard = {
 				enabled = true,
 				sections = {
