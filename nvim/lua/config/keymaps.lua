@@ -85,7 +85,11 @@ M.items = {
 		"n",
 		"<leader>fb",
 		function()
-			require("fzf-lua").buffers()
+			require("fzf-lua").buffers({
+				sort_lastused = true,
+				cwd_only = false,
+				no_term_buffers = true,
+			})
 		end,
 		"fzf find buffers",
 	},
