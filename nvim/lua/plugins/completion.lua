@@ -1,48 +1,33 @@
 return {
-  { "neovim/nvim-lspconfig", event = { "BufReadPost", "BufNewFile" } },
+	{
+		"saghen/blink.cmp",
+		dependencies = {
+			"L3MON4D3/LuaSnip", -- snippet engine
+		},
+		event = "InsertEnter",
+		opts = {
+			-- Make sure these are enabled; this is the usual baseline.
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+			},
 
-  { "mason-org/mason.nvim", cmd = "Mason", opts = {} },
+			-- You can choose auto popup or manual (Ctrl-Space).
+			completion = {
+				trigger = {
+					prefetch_on_insert = true,
+					show_on_insert = true, -- set false if you only want manual trigger
+				},
+			},
 
-  {
-    "mason-org/mason-lspconfig.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      ensure_installed = { "lua_ls" },
-      automatic_installation = true,
-    },
-    config = function(_, opts)
-      require("mason-lspconfig").setup(opts)
+			keymap = {
+				preset = "default",
 
-      local lspconfig = require("lspconfig")
+				["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+				["<CR>"] = { "accept", "fallback" },
 
-      -- Capabilities for completion (blink.cmp)
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      local ok, blink = pcall(require, "blink.cmp")
-      if ok and blink.get_lsp_capabilities then
-        capabilities = blink.get_lsp_capabilities(capabilities)
-      end
-
-      require("mason-lspconfig").setup_handlers({
-        function(server_name)
-          lspconfig[server_name].setup({
-            capabilities = capabilities,
-          })
-        end,
-
-        -- Example: nicer Lua settings for Neovim config
-        ["lua_ls"] = function()
-          lspconfig.lua_ls.setup({
-            capabilities = capabilities,
-            settings = {
-              Lua = {
-                diagnostics = { globals = { "vim" } },
-                workspace = { checkThirdParty = false },
-                telemetry = { enable = false },
-              },
-            },
-          })
-        end,
-      })
-    end,
-  },
+				["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
+				["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+			},
+		},
+	},
 }

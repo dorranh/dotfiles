@@ -35,6 +35,7 @@ return {
 	{ import = "plugins.rename" },
 
 	-- Completion
+	{ import = "plugins.snippets" },
 	{ import = "plugins.completion" },
 
 	-- Format
