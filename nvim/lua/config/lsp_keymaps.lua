@@ -6,6 +6,16 @@ function M.on_attach(args)
 		vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
 	end
 
+	-- Remove Neovim's default LSP hover mapping, if present
+	pcall(vim.keymap.del, "n", "K", { buffer = bufnr })
+
+	-- Set ours on the next tick so it wins even if defaults run after us
+	vim.schedule(function()
+		vim.keymap.set("n", "K", function()
+			require("utils.lsp").hover_filtered()
+		end, { buffer = bufnr, desc = "Hover (filtered LSP)" })
+	end)
+
 	-- ── Core navigation (NVChad-style, <leader>-prefixed) ──────────
 	map("n", "<leader>gd", vim.lsp.buf.definition, "LSP go to definition")
 	map("n", "<leader>gD", vim.lsp.buf.declaration, "LSP go to declaration")
@@ -42,7 +52,6 @@ function M.on_attach(args)
 	end, "LSP workspace symbols")
 
 	-- ── Info / actions ─────────────────────────────────────────────
-	map("n", "K", vim.lsp.buf.hover, "LSP hover")
 	map("n", "<C-k>", vim.lsp.buf.signature_help, "LSP signature help")
 	map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
 
