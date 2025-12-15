@@ -38,6 +38,9 @@ return {
 	{ import = "plugins.snippets" },
 	{ import = "plugins.completion" },
 
+	-- AI tools
+	{ import = "plugins.ai" },
+
 	-- Format
 	{ import = "plugins.format" },
 

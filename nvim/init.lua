@@ -15,6 +15,11 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- OPTIONAL - Secrets loading for plugins
+-- This currently only supports the MacOS keychain and assumes
+-- that some specific secrets are stored there.
+require("config.secrets")
+
 -- Core config
 require("config.options")
 require("config.autocmds")
