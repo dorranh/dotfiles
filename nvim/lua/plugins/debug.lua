@@ -352,9 +352,17 @@ return {
 					end
 				end
 				if type(mod.configurations) == "table" then
+					local replace = mod.replace == true
 					for ft, configs in pairs(mod.configurations) do
 						if type(configs) == "table" then
-							dap.configurations[ft] = configs
+							if replace then
+								dap.configurations[ft] = configs
+							else
+								dap.configurations[ft] = dap.configurations[ft] or {}
+								for _, cfg in ipairs(configs) do
+									table.insert(dap.configurations[ft], cfg)
+								end
+							end
 						end
 					end
 				end

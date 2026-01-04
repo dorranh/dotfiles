@@ -12,6 +12,9 @@ return {
 				-- Make sure these are enabled; this is the usual baseline.
 				sources = {
 					default = { "lsp", "path", "snippets", "buffer" },
+					per_filetype = {
+						["dap-repl"] = { inherit_defaults = false, "dap_repl", "buffer" },
+					},
 					providers = {
 						minuet = {
 							name = "minuet",
@@ -21,6 +24,12 @@ return {
 							-- since minuet.config.request_timeout is in seconds
 							timeout_ms = 3000,
 							score_offset = 50, -- Gives minuet higher priority among suggestions
+						},
+						dap_repl = {
+							name = "DAP",
+							module = "sources.dap_repl",
+							async = true,
+							timeout_ms = 1000,
 						},
 					},
 				},
