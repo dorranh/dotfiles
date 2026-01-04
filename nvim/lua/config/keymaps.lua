@@ -42,6 +42,88 @@ M.items = {
 
 	{ "n", "<leader>ds", vim.diagnostic.setloclist, "LSP diagnostic loclist" },
 
+	-- DAP
+	{
+		"n",
+		"<leader>dc",
+		function()
+			require("dap").continue()
+		end,
+		"DAP continue",
+	},
+	{
+		"n",
+		"<leader>do",
+		function()
+			require("dap").step_over()
+		end,
+		"DAP step over",
+	},
+	{
+		"n",
+		"<leader>di",
+		function()
+			require("dap").step_into()
+		end,
+		"DAP step into",
+	},
+	{
+		"n",
+		"<leader>dO",
+		function()
+			require("dap").step_out()
+		end,
+		"DAP step out",
+	},
+	{
+		"n",
+		"<leader>db",
+		function()
+			require("dap").toggle_breakpoint()
+		end,
+		"DAP toggle breakpoint",
+	},
+	{
+		"n",
+		"<leader>dB",
+		function()
+			require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+		end,
+		"DAP conditional breakpoint",
+	},
+	{
+		"n",
+		"<leader>dl",
+		function()
+			require("dap").run_last()
+		end,
+		"DAP run last",
+	},
+	{
+		"n",
+		"<leader>dr",
+		function()
+			require("dap").repl.open()
+		end,
+		"DAP REPL",
+	},
+	{
+		"n",
+		"<leader>dt",
+		function()
+			require("dap").terminate()
+		end,
+		"DAP terminate",
+	},
+	{
+		"n",
+		"<leader>du",
+		function()
+			require("dapui").toggle()
+		end,
+		"DAP UI toggle",
+	},
+
 	-- Buffers (simple NVChad-ish)
 	{ "n", "<leader>b", "<cmd>enew<CR>", "buffer new" },
 	{ "n", "<tab>", "<cmd>bnext<CR>", "buffer goto next" },

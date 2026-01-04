@@ -34,6 +34,9 @@ return {
 	{ import = "plugins.lsp" },
 	{ import = "plugins.rename" },
 
+	-- Debugger / DAP
+	{ import = "plugins.debug" },
+
 	-- Completion
 	{ import = "plugins.snippets" },
 	{ import = "plugins.completion" },

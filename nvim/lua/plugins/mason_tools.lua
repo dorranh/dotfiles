@@ -12,10 +12,14 @@ return {
         -- Python
         "ruff",     -- we’ll use ruff_format in Conform
         "pyright",  -- LSP server
+        "debugpy",  -- DAP adapter
 
         -- TypeScript / JS
         "prettier",
         "typescript-language-server",
+
+        -- Rust
+        "codelldb", -- DAP adapter
       },
       auto_update = false,
       run_on_start = true,
