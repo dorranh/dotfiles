@@ -319,11 +319,7 @@ return {
 						if not name or name == "" then
 							return {}
 						end
-						local input = vim.fn.input("Test args: ", name)
-						if input == "" then
-							return {}
-						end
-						return vim.split(input, "%s+")
+						return { name }
 					end,
 					cwd = "${workspaceFolder}",
 					stopOnEntry = false,
@@ -358,10 +354,7 @@ return {
 				if type(mod.configurations) == "table" then
 					for ft, configs in pairs(mod.configurations) do
 						if type(configs) == "table" then
-							dap.configurations[ft] = dap.configurations[ft] or {}
-							for _, cfg in ipairs(configs) do
-								table.insert(dap.configurations[ft], cfg)
-							end
+							dap.configurations[ft] = configs
 						end
 					end
 				end
@@ -374,6 +367,37 @@ return {
 			end
 
 			load_project_dap()
+			vim.g.dap_load_project = load_project_dap
+
+			local function record_last_config(session)
+				local cfg = session and session.config or {}
+				local ft = cfg.filetype or vim.bo.filetype
+				local keep = {
+					"name",
+					"type",
+					"request",
+					"program",
+					"args",
+					"cwd",
+					"env",
+					"stopOnEntry",
+					"sourceLanguages",
+					"sourceMap",
+					"console",
+					"runInTerminal",
+				}
+				local out = {}
+				for _, key in ipairs(keep) do
+					if cfg[key] ~= nil then
+						out[key] = cfg[key]
+					end
+				end
+				vim.g.dap_last_config = { filetype = ft, config = out }
+			end
+
+			dap.listeners.after.event_initialized["record_last_config"] = function(session)
+				record_last_config(session)
+			end
 		end,
 	},
 	{

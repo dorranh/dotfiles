@@ -14,3 +14,21 @@ vim.api.nvim_create_autocmd("VimResized", {
   command = "tabdo wincmd =",
 })
 
+vim.api.nvim_create_autocmd("DirChanged", {
+  group = augroup,
+  callback = function()
+    if type(vim.g.dap_load_project) == "function" then
+      vim.g.dap_load_project()
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = augroup,
+  pattern = "*/.nvim/dap.lua",
+  callback = function()
+    if type(vim.g.dap_load_project) == "function" then
+      vim.g.dap_load_project()
+    end
+  end,
+})
